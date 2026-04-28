@@ -5,6 +5,8 @@ import com.internship.tool.exception.ResourceNotFoundException;
 import com.internship.tool.exception.ValidationException;
 import com.internship.tool.repository.MeetingMinutesRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,17 +20,20 @@ public class MeetingMinutesServiceImpl implements MeetingMinutesService {
     private final MeetingMinutesRepository repository;
 
     @Override
+    @Cacheable(value = "minutes", key = "#pageable.pageNumber + '-' + #pageable.pageSize")
     public Page<MeetingMinutes> getAll(Pageable pageable) {
         return repository.findAllByIsDeletedFalse(pageable);
     }
 
     @Override
+    @Cacheable(value = "minutes", key = "#id")
     public MeetingMinutes getById(Long id) {
         return repository.findByIdAndIsDeletedFalse(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Meeting minutes not found with id: " + id));
     }
 
     @Override
+    @CacheEvict(value = "minutes", allEntries = true)
     public MeetingMinutes create(MeetingMinutes meetingMinutes) {
         validateMeetingMinutes(meetingMinutes);
         meetingMinutes.setIsDeleted(false);
@@ -36,6 +41,7 @@ public class MeetingMinutesServiceImpl implements MeetingMinutesService {
     }
 
     @Override
+    @CacheEvict(value = "minutes", allEntries = true)
     public MeetingMinutes update(Long id, MeetingMinutes updated) {
         validateMeetingMinutes(updated);
         MeetingMinutes existing = getById(id);
@@ -49,6 +55,7 @@ public class MeetingMinutesServiceImpl implements MeetingMinutesService {
     }
 
     @Override
+    @CacheEvict(value = "minutes", allEntries = true)
     public void delete(Long id) {
         MeetingMinutes existing = getById(id);
         existing.setIsDeleted(true);

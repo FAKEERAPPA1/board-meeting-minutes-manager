@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getMeetingById, deleteMeeting } from "../services/meetingsService";
 import Navbar from "../components/Navbar";
 import LoadingSpinner from "../components/LoadingSpinner";
+import AiPanel from "../components/AiPanel";
+
 
 const STATUS_STYLES = {
     PUBLISHED: "bg-green-100 text-green-700",
@@ -151,7 +153,7 @@ export default function MeetingDetailPage() {
                         </p>
                     </div>
 
-                    {/* AI Description */}
+                    {/* AI Description — shown if backend already has one saved */}
                     {meeting.aiDescription && (
                         <div className="mb-5 border-l-4 border-blue-400 pl-4">
                             <h2 className="text-sm font-semibold text-blue-700 mb-1">
@@ -186,6 +188,13 @@ export default function MeetingDetailPage() {
                     </div>
 
                 </div>
+
+                {/* ✅ AI Panel — rendered below the meeting card */}
+                <AiPanel
+                    meetingId={meeting.id}
+                    minutesText={meeting.minutesText}
+                />
+
             </div>
         </div>
     );

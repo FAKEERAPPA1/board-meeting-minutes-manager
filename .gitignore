@@ -1,42 +1,9 @@
-# Environment variables - NEVER commit this
 .env
-
-# Java / Maven
 target/
+node_modules/
+__pycache__/
+chroma_data/
 *.class
-*.jar
-*.war
-*.ear
-.mvn/
-!.mvn/wrapper/maven-wrapper.jar
-
-# IDE
+.DS_Store
 .idea/
 *.iml
-.eclipse/
-.settings/
-.project
-.classpath
-
-# Node / React
-node_modules/
-dist/
-build/
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-.venv/
-venv/
-
-# ChromaDB
-chroma_data/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-logs/

@@ -1,6 +1,6 @@
 # 📋 Board Meeting Minutes Manager
 
-> Tool-99 — AI-powered Board Meeting Minutes Manager | Capstone Project | Sprint: 14 April – 9 May 2026
+> Tool-99 — Board Meeting Minutes Manager | Capstone Project | Sprint: 14 April – 9 May 2026
 
 ---
 
